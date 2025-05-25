@@ -1,0 +1,17 @@
+const express = require("express");
+const cors = require("./middlewares/cors");
+const path = require("path");
+const cookieParser = require("cookie-parser");
+const routes = require("./routes/routes");
+const db = require("./db/db");
+const app = express();
+require("dotenv").config();
+require("./models/associations");
+const startCronJobs = require("./utils/cronJobs");
+startCronJobs();
+app.use(cors);
+app.use(express.json());
+app.use(cookieParser());
+app.use(routes);
+app.use("/img", express.static(path.join(__dirname, "img")));
+app.listen(8080, () => console.log("Server listen on 8080 port"));
