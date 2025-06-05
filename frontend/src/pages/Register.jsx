@@ -4,12 +4,10 @@ import { useNavigate } from "react-router-dom";
 import useAuthStore from "../store/AuthStore";
 import { useState } from "react";
 import registerValidationsSchema from "../validations/registerValidationShema";
-import expandArrow2 from "./expand-arrow-2.png";
-import expandArrow3 from "./expand-arrow-3.png";
-import expandArrow from "./expand-arrow.png";
-import image from "./image.png";
-import "./style/Register.css";
-import vector1 from "./vector-1.svg";
+import expandArrow from "../assets/images/expand-arrow.png";
+import image from "../assets/images/logo-fitrack.png";
+// import "../style/Register.css";
+import vector1 from "../assets/images/vector-background.svg";
 
 const Register = () => {
   const [errorMessage, setErrorMessage] = useState(null);
@@ -143,8 +141,6 @@ const Register = () => {
                     <img className="img" alt="Expand arrow" src={image} />
                   </div>
                 </div>
-
-                {/* Ajoutez ici les champs pour Poids et Taille si nécessaire */}
               </div>
 
               {/* Email */}
