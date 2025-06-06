@@ -17,23 +17,27 @@ const {
   getAndAddCategoriesFromWger,
   getAndAddExercisesFromWger,
 } = require("../api/Wger.js");
-// router.get("/", AuthController.getUsers);
+
+// Auth routes
 router.post("/register", upload.single("avatar"), AuthController.register);
 router.post("/login", AuthController.login);
 router.post("/refresh-token", AuthController.refreshToken);
 router.post("/logout", AuthController.logout);
 
 // Profile routes
-router.get("/profile", verifyToken, UserController.getProfile);
+router.get("/users/profile", verifyToken, UserController.getProfile);
+router.put("/users/profile", verifyToken, upload.single("avatar"), UserController.updateProfile);
+router.put("/users/password", verifyToken, UserController.updatePassword);
 
-// User States routes
+// User Stats routes
 router.post("/user-stats", verifyToken, UserStatController.addStat);
 router.get("/user-stats", verifyToken, UserStatController.getStats);
+
 // Goals routes
 router.post("/goals", verifyToken, GoalController.createGoal);
 router.get("/goals", verifyToken, GoalController.getGoals);
 
-//Notification route
+// Notification routes
 router.get(
   "/notifications",
   verifyToken,
@@ -54,12 +58,10 @@ router.get(
 );
 
 // Session routes
-
 router.get("/sessions", verifyToken, SessionController.getUserSession);
 router.post("/sessions", verifyToken, SessionController.createSession);
 
 // Session Exercises routes
-
 router.post(
   "/session-exercises",
   verifyToken,
@@ -72,14 +74,14 @@ router.get(
 );
 
 // Type Exercises routes
-
 router.get(
   "/type-exercises",
   verifyToken,
   TypeExerciseController.getAllTypesExercises
 );
-
 router.post("/type-exercises", TypeExerciseController.addExerciseType);
+
+// Exercise Categories routes
 router.get(
   "/exercise-categories",
   verifyToken,
@@ -90,11 +92,12 @@ router.post(
   verifyToken,
   ExerciseCategoryController.addCategory
 );
+
 // Type route
 router.get("/types", TypeController.getAllTypes);
 router.post("/types", TypeController.createType);
 
-// Wger route
+// Wger routes
 router.get("/add-categories-from-wger", async (req, res) => {
   try {
     const result = await getAndAddCategoriesFromWger();
@@ -115,4 +118,5 @@ router.get("/add-exercises-from-wger", async (req, res) => {
       .json({ error: "Erreur interne du serveur", message: err.message });
   }
 });
+
 module.exports = router;

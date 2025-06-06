@@ -1,0 +1,14 @@
+
+
+.add-session-btn{
+  all: unset;
+  cursor: pointer;
+  width: 250px ;
+}
+
+.add-session-img{
+  width: 50%;
+  background-color: white;
+  border-radius: 30px;
+  padding: 1rem;
+}

@@ -60,7 +60,7 @@ const LoginForm = ({ formik, errorMessage }) => {
 
           <p className="register-prompt">
             <span className="register-text">Pas de compte ? </span>
-            <span className="register-link">
+            <span className="register-login-link">
               <Link to="/register">Inscrivez-vous</Link>
             </span>
           </p>
