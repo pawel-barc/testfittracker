@@ -4,7 +4,7 @@ display: flex;
 
 .header {
 align-items: center; background-color: #ffffff; display: flex;
-flex-direction: column; gap: 100px;
+flex-direction: column;
 padding: 2rem 2rem;
 position: relative;
 width: 10rem;

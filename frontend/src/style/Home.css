@@ -6,28 +6,41 @@
   text-align: center;
   color: white;
   backdrop-filter: blur(10px);
-  height: 89.7svh; /* Adjust for header height */
-  padding-top: 5rem
+  height: 89.7svh;
+  padding-top: 2rem;
+  font-family: 'PP-Formula', sans-serif;
 }
 
-.login-text-wrapper{
+.login-div-wrapper{
   background-color: #00A5A3;
   border-radius: 10px;
   padding: 0.5rem 2rem 0.5rem 2rem;
+  text-decoration: none;
+  color: inherit;
 }
 
-.register-text-wrapper{
+.register-div-wrapper{
   background-color: #424242;
   border-radius: 10px;
   padding: 0.5rem 2rem 0.5rem 2rem;
+  text-decoration: none;
+  color: inherit;
+}
+
+.register-div-wrapper:hover,
+.login-div-wrapper:hover{
+  filter: brightness(1.2);
 }
 
 .welcome-title-wrapper{
+  font-family:'GT-Walsheim-Condensed-Ultra-Bold-Oblique-Trial', sans-serif;
   font-size: 90px;
+  font-weight: bolder;
 }
 
 .welcome-text-wrapper{
   font-size: 30px;
+  font-family:'PP-Formula', sans-serif;
 }
 
 .login-register-container{
@@ -35,4 +48,5 @@
   font-size: 30px;
   gap: 2rem;
   align-items: center;
+  font-family:'PP-Formula', sans-serif;
 }

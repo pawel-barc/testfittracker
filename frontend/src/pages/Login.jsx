@@ -5,6 +5,7 @@ import LoginUser from "../api/loginApi";
 import LoginForm from "../components/LoginForm";
 import useAuthStore from "../store/AuthStore";
 import { useState } from "react";
+import "../style/Global.css";
 
 const Login = () => {
   const [errorMessage, setErrorMessage] = useState(null);

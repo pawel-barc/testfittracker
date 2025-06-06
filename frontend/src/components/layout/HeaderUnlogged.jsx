@@ -16,11 +16,13 @@ const HeaderUnlogged = () => {
 
   return (
     <div className="header">
+      <Link to="/" className="logo-container">
       <img
         className="logo-fitrack"
         alt="Logo background"
         src={"../../../src/assets/images/logo-fitrack.png"}
       />
+      </Link>
     </div>
   );
 };
