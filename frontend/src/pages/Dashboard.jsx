@@ -3,6 +3,7 @@ import UserStatList from "../components/UserStatList";
 import GoalForm from "../components/GoalForm";
 import GoalList from "../components/GoalList";
 import Notifications from "../components/Notifications";
+import CalendarPage from "./CalendarPage";
 import { useState } from "react";
 import useAuthStore from "../store/AuthStore";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -54,7 +55,26 @@ const Dashboard = () => {
       </div>
 
       <hr />
-
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "space-evenly",
+        }}
+      >
+        <div style={{ display: "flex", flexDirection: "column" }}>
+          <CalendarPage />
+          <button onClick={() => navigate("/calendar")}>
+            🗓️ Voir le calendrier
+          </button>
+        </div>
+        <button
+          style={{ width: "25vw", height: "25vw", background: "grey" }}
+          onClick={() => navigate("/goals")}
+        >
+          <FontAwesomeIcon icon={faBullseye} /> Ajouter un objectif
+        </button>
+      </div>
       <button
         onClick={() => setShowStatForm((prev) => !prev)}
         style={{
@@ -74,9 +94,7 @@ const Dashboard = () => {
       {showStatForm && <AddUserStatForm onStatAdded={handleStatAdded} />}
       <UserStatList key={refreshKey} />
       <hr />
-      <button onClick={() => navigate("/goals")}>
-        <FontAwesomeIcon icon={faBullseye} /> Ajouter un objectif
-      </button>
+
       <GoalList />
       <hr />
       <hr />

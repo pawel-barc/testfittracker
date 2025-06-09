@@ -10,6 +10,7 @@ import PublicLayout from "../layout/PublicLayout";
 import useAuthStore from "../store/AuthStore";
 import NotificationsPage from "../pages/NotificationsPage";
 import GoalPage from "../pages/GoalPage";
+import CalendarPage from "../pages/CalendarPage";
 const Router = () => {
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
 
@@ -37,6 +38,7 @@ const Router = () => {
               element={isAuthenticated ? <NotificationsPage /> : <Login />}
             />
             <Route path="/goals" element={<GoalPage />} />
+            <Route path="/calendar" element={<CalendarPage />} />
           </Route>
         )}
       </Routes>

@@ -5,6 +5,7 @@ import ProgressForm from "./ProgressForm";
 const GoalList = () => {
   const [goals, setGoals] = useState([]);
   const [refreshKey, setRefreshKey] = useState(0);
+  const [visibleFormId, setVisibleFormId] = useState(null);
 
   useEffect(() => {
     const fetchGoals = async () => {
@@ -35,14 +36,7 @@ const GoalList = () => {
           : ((current - initial) / (target - initial)) * 100;
 
         percent = Math.min(Math.max(percent, 0), 100).toFixed(1);
-        console.log({
-          goal: goal.title,
-          progress: goal.progress,
-          initial,
-          current,
-          target,
-          percent,
-        });
+
         return (
           <div key={goal.id} style={{ marginBottom: "1rem" }}>
             <strong>{goal.title}</strong>
@@ -66,12 +60,25 @@ const GoalList = () => {
               ></div>
             </div>
             <small>{percent}% complété</small>
-            <ProgressForm
-              goalId={goal.id}
-              onProgressAdded={() => {
-                setRefreshKey((prev) => prev + 1);
-              }}
-            />
+
+            <button
+              onClick={() =>
+                setVisibleFormId(visibleFormId === goal.id ? null : goal.id)
+              }
+              style={{ marginTop: "0.5rem" }}
+            >
+              {visibleFormId === goal.id ? "Annuler" : "Modifier"}
+            </button>
+
+            {visibleFormId === goal.id && (
+              <ProgressForm
+                goalId={goal.id}
+                onProgressAdded={() => {
+                  setRefreshKey((prev) => prev + 1);
+                  setVisibleFormId(null);
+                }}
+              />
+            )}
           </div>
         );
       })}

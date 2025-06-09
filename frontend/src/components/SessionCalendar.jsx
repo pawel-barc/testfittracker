@@ -1,7 +1,7 @@
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import { useEffect, useState } from "react";
-import { getUserSessions } from "../api/sessionApi";
+import { getSessions } from "../api/sessionApi";
 
 const SessionCalendar = () => {
   const [sessions, setSessions] = useState([]);
@@ -10,7 +10,7 @@ const SessionCalendar = () => {
 
   useEffect(() => {
     const loadSessions = async () => {
-      const data = await getUserSessions();
+      const data = await getSessions();
       setSessions(data);
     };
     loadSessions();
