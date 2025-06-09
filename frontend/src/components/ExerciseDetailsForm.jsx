@@ -41,15 +41,12 @@ const ExerciseDetailsForm = ({
   };
 
   return (
-    <div>
+   <div>
+    <div className="user-exercices">
       {selectedExercises.map((ex) => (
         <div
           key={ex.id}
-          style={{
-            border: "1px solid #ccc",
-            padding: "10px",
-            marginBottom: "10px",
-          }}
+          className="exercise-details"
         >
           <h4>{ex.name}</h4>
           <label>
@@ -62,7 +59,6 @@ const ExerciseDetailsForm = ({
               }
             />
           </label>
-          <br />
           <label>
             Répétitions:
             <input
@@ -73,7 +69,6 @@ const ExerciseDetailsForm = ({
               }
             />
           </label>
-          <br />
           <label>
             Poids (kg):
             <input
@@ -84,7 +79,6 @@ const ExerciseDetailsForm = ({
               }
             />
           </label>
-          <br />
           <label>
             Durée (min):
             <input
@@ -95,7 +89,6 @@ const ExerciseDetailsForm = ({
               }
             />
           </label>
-          <br />
           <label>
             Notes:
             <textarea
@@ -106,6 +99,7 @@ const ExerciseDetailsForm = ({
         </div>
       ))}
 
+    </div>
       <button onClick={handleSave}>✅ Sauvegarder les détails</button>
     </div>
   );

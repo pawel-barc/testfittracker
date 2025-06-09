@@ -1,4 +1,27 @@
+.session-wizard-close-button{
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
 
+.session-wizard-header{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 20px;
+  gap: 5rem;
+}
+
+.session-wizard{
+  color: #010101;
+  background-color: white;
+  border-radius: 20px;
+  padding: 0.5rem;
+}
+
+.session-wizard h2{
+  font-size: 30px;
+}
 
 .add-session-btn{
   all: unset;
@@ -11,4 +34,182 @@
   background-color: white;
   border-radius: 30px;
   padding: 1rem;
+  transition: transform 0.2s ease-in-out;
+
+}
+
+.add-session-img:hover{
+    transform: scale(1.1);
+
+}
+
+.category-grid{
+  display: grid;
+  grid-template-columns: repeat(4, 1fr ); /* 4 colonnes de 20px */
+  gap: 1rem; /* Optionnel : Espace entre les cellules */
+  padding:0 1rem 1rem 1rem;
+}
+
+.category-button{
+  all: unset;
+  cursor: pointer;
+  background-color: #424242;
+  border-radius: 100px;
+  padding: 1rem;
+  transition: transform 0.2s ease-in-out;
+}
+
+.category-button:hover{
+  transform: scale(1.1);
+  box-shadow: inset 0 0 0 3px #00A5A3; /* bordure bleue inside */  
+}
+
+.close-button{
+  all: unset;
+}
+.close-button:hover{
+  cursor: pointer;
+  opacity: 0.7;
+}
+
+.close-button img{
+  width: 2.5rem;
+
+}
+
+.session-wizard-step2{
+  color: #010101;
+  background-color: white;
+  border-radius: 20px;
+  width: 30rem;
+  padding: 0.5rem;
+}
+
+.session-wizard-step2 h2{
+  font-size: 30px;
+  margin: 0;
+}
+
+.session-form-step2{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 1rem 0 1rem;
+  justify-content: center;
+}
+
+.session-form-label{
+  display: flex;
+  flex-direction: column;
+  text-align: start;
+  padding: 2rem 0 2rem 0;
+  width: 100%;
+}
+
+.session-form-label-border{
+  display: flex;
+  flex-direction: column;
+  text-align: start;
+  border-top: #00A5A3 solid 1px;
+  border-bottom: #00A5A3 solid 1px;
+  padding: 2rem 0 2rem 0;
+  width: 100%;
+}
+
+.session-form-label input,
+.session-form-label-border input
+{
+  width: 100%;
+  border-radius: 5px;
+  height: 2.5rem;
+  border: none;
+  background-color: #D3D3D3;
+  margin-top: 0.3rem;
+  padding: 0 0.5rem;
+  font-family: inherit;
+  box-sizing: border-box;
+}
+
+.session-form-label textarea{
+  width: 100%;
+  border-radius: 5px;
+  height: 2.5rem;
+  border: none;
+  background-color: #D3D3D3;
+  margin-top: 0.3rem;
+  padding: 0 0.5rem;
+  font-family: inherit;
+  box-sizing: border-box;
+  min-height: 15svh;
+}
+
+.next-step-button{
+    width: 70%;
+    height: 2.8rem;
+    border: none;
+    background-color: #00A5A3;
+    color: white;
+    border-radius: 10px;
+    font-family: 'PP-Formula', sans-serif;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-bottom: 1rem;
+}
+
+.next-step-button:hover{
+    opacity: 0.7;
+}
+
+
+
+/* --------------------- STEP-------------------- 3 */
+.exercise-selection{
+  display: flex;
+  gap: 3rem;
+  margin-bottom: 5svh;
+  padding:  0 2rem 0 2rem;
+}
+
+.user-exercices{
+  display: grid;
+  grid-template-columns: repeat(2,0fr);
+  gap: 1rem;
+}
+
+.exercise-details{
+  border: #010101 solid 1px;
+}
+
+.exercise-selection input{
+  width: 80%;
+  border-radius: 5px;
+  height: 2.5rem;
+  border: none;
+  background-color: #D3D3D3;
+  margin-top: 0.3rem;
+  padding: 0 0.5rem;
+  font-family: inherit;
+  box-sizing: border-box;
+}
+
+.exercise-adding-selector{
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap : 1rem;
+}
+
+.add-exercise-button{
+  all: unset;
+  cursor: pointer;
+  background-color: #D3D3D3;
+  border-radius: 5px;
+  height: 2.5rem;
+  
+}
+
+.line-br{
+  height: 50svh;
+  width: 2px;
+  background-color: #00A5A3;
 }

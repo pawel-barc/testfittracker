@@ -45,7 +45,7 @@ const HeaderLogged = () => {
       <img
         className="logo-fitrack"
         alt="Logo background"
-        src={"../../../src/assets/images/logo-fitrack.png"}
+        src={"../../../public/images/logo-fitrack.png"}
       />
       </div>
 
@@ -55,8 +55,8 @@ const HeaderLogged = () => {
         alt="Dashboard"
         src={
           isActive("/")
-            ? "../../../src/assets/images/dashboard-icon-active.svg"
-            : "../../../src/assets/images/dashboard-icon.svg"
+            ? "../../../public/images/dashboard-icon-active.svg"
+            : "../../../public/images/dashboard-icon.svg"
         }
       />
     </Link>
@@ -67,8 +67,8 @@ const HeaderLogged = () => {
         alt="Sessions"
         src={
           isActive("/sessions")
-            ? "../../../src/assets/images/sessions-icon-active.svg"
-            : "../../../src/assets/images/sessions-icon.svg"
+            ? "../../../public/images/sessions-icon-active.svg"
+            : "../../../public/images/sessions-icon.svg"
         }
       />
     </Link>
@@ -79,8 +79,8 @@ const HeaderLogged = () => {
         alt="Profile"
         src={
           isActive("/profile")
-            ? "../../../src/assets/images/profile-icon-active.svg"
-            : "../../../src/assets/images/profile-icon.svg"
+            ? "../../../public/images/profile-icon-active.svg"
+            : "../../../public/images/profile-icon.svg"
         }
       />
     </Link>
@@ -92,7 +92,7 @@ const HeaderLogged = () => {
           disabled={isLoggingOut}
         >
           <img 
-            src={isLoggingOut ? "../../../src/assets/images/logout-btn.svg" : "../../../src/assets/images/logout-btn.svg"} 
+            src={isLoggingOut ? "../../../public/images/logout-btn.svg" : "../../../public/images/logout-btn.svg"} 
             alt={isLoggingOut ? "Déconnexion en cours" : "Déconnexion"} 
           />
         </button>

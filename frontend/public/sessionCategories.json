@@ -1,0 +1,54 @@
+[
+  {
+    "name": "Running",
+    "image": "/images/running.png"
+  },
+  {
+    "name": "Swimming",
+    "image": "/images/swimming.png"
+  },
+  {
+    "name": "Stretching",
+    "image": "/images/stretching.png"
+  },
+  {
+    "name": "Cycling",
+    "image": "/images/cycling.png"
+  },
+  {
+    "name": "Yoga",
+    "image": "/images/yoga.png"
+  },
+  {
+    "name": "Arms",
+    "image": "/images/arms.png"
+  },
+  {
+    "name": "Legs",
+    "image": "/images/legs.png"
+  },
+  {
+    "name": "Abs",
+    "image": "/images/abs.png"
+  },
+  {
+    "name": "Chest",
+    "image": "/images/chest.png"
+  },
+  {
+    "name": "Back",
+    "image": "/images/back.png"
+  },
+  {
+    "name": "Shoulders",
+    "image": "/images/shoulders.png"
+  },
+  {
+    "name": "Calves",
+    "image": "/images/calves.png"
+  },
+  {
+    "name": "Cardio",
+    "image": "/images/cardio.png"
+  }
+]

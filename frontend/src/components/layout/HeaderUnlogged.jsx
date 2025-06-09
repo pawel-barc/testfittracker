@@ -1,7 +1,7 @@
 import { Link, useLocation } from "react-router-dom";
 import { useState } from "react";
 import "../../style/HeaderUnlogged.css";
-import "../../assets/images/logo-fitrack.png";
+import "../../../public/images/logo-fitrack.png";
 
 const HeaderUnlogged = () => {
   const location = useLocation();
@@ -20,7 +20,7 @@ const HeaderUnlogged = () => {
       <img
         className="logo-fitrack"
         alt="Logo background"
-        src={"../../../src/assets/images/logo-fitrack.png"}
+        src={"../../../public/images/logo-fitrack.png"}
       />
       </Link>
     </div>
