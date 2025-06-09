@@ -69,12 +69,16 @@ const Dashboard = () => {
           </button>
         </div>
         <button
-          style={{ width: "25vw", height: "25vw", background: "grey" }}
+          style={{ width: "20vw", height: "20vw", background: "grey" }}
           onClick={() => navigate("/goals")}
         >
           <FontAwesomeIcon icon={faBullseye} /> Ajouter un objectif
         </button>
       </div>
+      <hr />
+      <h1 style={{ textAlign: "center" }}>
+        {user.first_name} {user.last_name}
+      </h1>
       <button
         onClick={() => setShowStatForm((prev) => !prev)}
         style={{
