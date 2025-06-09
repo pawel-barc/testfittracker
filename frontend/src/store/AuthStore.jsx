@@ -6,8 +6,8 @@ const useAuthStore = create(
   persist(
     (set) => ({
       isAuthenticated: false,
-      login: () => set({ isAuthenticated: true }), //    Lorsque le login est appelé, l'état change pour true
-      logout: () => set({ isAuthenticated: false }), //  Lorsque le logout est appelé, l'état change pour false
+      login: (userData) => set({ isAuthenticated: true, user: userData }), //    Lorsque le login est appelé, l'état change pour true
+      logout: () => set({ isAuthenticated: false, user: null }), //  Lorsque le logout est appelé, l'état change pour false
     }),
     {
       name: "auth-storage", // La clé pour le localStorage

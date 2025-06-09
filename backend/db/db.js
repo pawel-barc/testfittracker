@@ -1,6 +1,6 @@
 const { Sequelize } = require("sequelize");
 
-const db = new Sequelize("fitrack", "postgres", "root", {
+const db = new Sequelize("fittracker", "postgres", "root", {
   host: "localhost",
   dialect: "postgres",
   port: 5432,

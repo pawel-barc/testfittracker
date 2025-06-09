@@ -12,7 +12,7 @@ const Login = () => {
   const navigate = useNavigate();
   // Récupération de la fonction login depuis le 'AuthStore' pour mettre à jour l'état de connexion après la connexion
   const login = useAuthStore((state) => state.login);
-  
+
   //Initialisation du formulaire avec Formik
   const formik = useFormik({
     initialValues: {
@@ -32,7 +32,7 @@ const Login = () => {
         //Si la connexion est réussie l'utilisateur est informé et rédirigé vers la page d'accueil
         if (apiResponse.success) {
           console.log(apiResponse);
-          login(); // L'état sera actualisé
+          login(apiResponse.user); // L'état sera actualisé
           navigate("/");
           //Si la connexion est échouée, l'utilisateur est informé des erreurs et reste sur la page de connexion
         } else if (apiResponse.error) {
@@ -44,7 +44,7 @@ const Login = () => {
       }
     },
   });
-  
+
   //Retourne le formulaire de connexion avec le prop du formik
   return (
     <>

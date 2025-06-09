@@ -2,12 +2,15 @@ import { useEffect, useState } from "react";
 import { getUserStat } from "../api/userStatsApi";
 
 function UserStatList() {
-  const [stats, setStats] = useState([]);
+  const [latestStat, setLatestStat] = useState(null);
 
   const loadStats = async () => {
     const data = await getUserStat();
-    if (!data.error) {
-      setStats(data);
+    if (!data.error && data.length > 0) {
+      const sorted = [...data].sort(
+        (a, b) => new Date(b.created_at) - new Date(a.created_at)
+      );
+      setLatestStat(sorted[0]);
     }
   };
 
@@ -15,24 +18,18 @@ function UserStatList() {
     loadStats();
   }, []);
 
+  if (!latestStat) return <p>Aucune statistique enregistrée.</p>;
+
   return (
-    <div className="stat-list">
-      <h2>Histoire des statistiques</h2>
-      {stats.length === 0 ? (
-        <p>Pas des données</p>
-      ) : (
-        <ul>
-          {stats.map((stat) => (
-            <li key={stat.id}>
-              <strong>{new Date(stat.created_at).toLocaleDateString()}</strong>{" "}
-              - Poids: {stat.weight} kg, Taille: {stat.height} cm, BMI:{" "}
-              {stat.bmi}
-              {stat.body_fat_percentage &&
-                `, Fat %: ${stat.body_fat_percentage}`}
-            </li>
-          ))}
-        </ul>
-      )}
+    <div className="latest-stat">
+      <h2>Statistique actuelle</h2>
+      <p>
+        <strong>{new Date(latestStat.created_at).toLocaleDateString()}</strong>{" "}
+        - Poids: {latestStat.weight} kg, Taille: {latestStat.height} cm, BMI:{" "}
+        {latestStat.bmi}
+        {latestStat.body_fat_percentage &&
+          `, Fat %: ${latestStat.body_fat_percentage}`}
+      </p>
     </div>
   );
 }

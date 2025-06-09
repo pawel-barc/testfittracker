@@ -1,46 +1,60 @@
 import { useEffect, useState } from "react";
-import {
-  getNotifications,
-  markNotificationAsRead,
-} from "../api/notificationsApi";
+import { getNotifications } from "../api/notificationsApi";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBell } from "@fortawesome/free-solid-svg-icons";
+import { useNavigate } from "react-router-dom";
 
 const Notifications = () => {
-  const [notifications, setNotifications] = useState([]);
+  const [unreadCount, setUnreadCount] = useState(0);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchData = async () => {
-      const data = await getNotifications();
-      console.log("Notifications from backend:", data);
-      setNotifications(data);
+    const fetchNotifications = async () => {
+      const allNotifications = await getNotifications();
+      const unread = allNotifications.filter(
+        (notif) => notif.status === "unread"
+      );
+      setUnreadCount(unread.length);
     };
-    fetchData();
+
+    fetchNotifications();
   }, []);
 
-  const handleMarkAsRead = async (id) => {
-    await markNotificationAsRead(id);
-    setNotifications((prev) =>
-      prev.map((n) => (n.id === id ? { ...n, status: "read" } : n))
-    );
+  const handleClick = () => {
+    navigate("/notifications");
   };
 
   return (
-    <div>
-      <h2>📬 Notifications</h2>
-      {notifications.length === 0 ? (
-        <p>Pas de nouvelles notifications.</p>
-      ) : (
-        notifications.map((notif) => (
-          <div key={notif.id} style={{ marginBottom: "1rem" }}>
-            <p>{notif.message}</p>
-            {notif.status === "unread" && (
-              <button onClick={() => handleMarkAsRead(notif.id)}>
-                Marquer comme lue
-              </button>
-            )}
-          </div>
-        ))
+    <button
+      onClick={handleClick}
+      style={{
+        position: "relative",
+        background: "transparent",
+        border: "none",
+        cursor: "pointer",
+      }}
+      aria-label="Notifications"
+    >
+      <FontAwesomeIcon icon={faBell} size="lg" />
+      {unreadCount > 0 && (
+        <span
+          style={{
+            position: "absolute",
+            top: "-6px",
+            right: "-10px",
+            background: "red",
+            color: "white",
+            borderRadius: "50%",
+            padding: "2px 6px",
+            fontSize: "12px",
+            fontWeight: "bold",
+            lineHeight: 1,
+          }}
+        >
+          {unreadCount}
+        </span>
       )}
-    </div>
+    </button>
   );
 };
 
