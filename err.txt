@@ -1,0 +1,17 @@
+Executing (default): INSERT INTO "session_exercises" ("id","sets","reps","weight_used","duration","calories_burned","notes","name","session_id","type_exercise_id") VALUES (DEFAULT,$1,$2,$3,$4,$5,$6,$7,$8,$9) RETURNING "id","sets","reps","weight_used","duration","calories_burned","notes","name","session_id","type_exercise_id";
+❌ ERREUR COMPLÈTE: {
+  name: 'SequelizeForeignKeyConstraintError',
+  message: 'une instruction insert ou update sur la table « session_exercises » viole la contrainte de clé\n' +
+    'étrangère « type_exercise_id_fk »',
+  stack: 'Error\n' +
+    '    at Query.run (C:\\Users\\youne\\Desktop\\Nouveau dossier\\testfittracker\\backend\\node_modules\\sequelize\\lib\\dialects\\postgres\\query.js:50:25)\n' +
+    '    at C:\\Users\\youne\\Desktop\\Nouveau dossier\\testfittracker\\backend\\node_modules\\sequelize\\lib\\sequelize.js:315:28\n' +
+    '    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)\n' +
+    '    at async PostgresQueryInterface.insert (C:\\Users\\youne\\Desktop\\Nouveau dossier\\testfittracker\\backend\\node_modules\\sequelize\\lib\\dialects\\abstract\\query-interface.js:308:21)\n' +
+    '    at async model.save (C:\\Users\\youne\\Desktop\\Nouveau dossier\\testfittracker\\backend\\node_modules\\sequelize\\lib\\model.js:2490:35)\n' +
+    '    at async SessionExercise.create (C:\\Users\\youne\\Desktop\\Nouveau dossier\\testfittracker\\backend\\node_modules\\sequelize\\lib\\model.js:1362:12)\n' +
+    '    at async addExerciseToSession (C:\\Users\\youne\\Desktop\\Nouveau dossier\\testfittracker\\backend\\controllers\\SessionExerciseController.js:78:24)',
+  sql: 'INSERT INTO "session_exercises" ("id","sets","reps","weight_used","duration","calories_burned","notes","name","session_id","type_exercise_id") VALUES (DEFAULT,$1,$2,$3,$4,$5,$6,$7,$8,$9) RETURNING "id","sets","reps","weight_used","duration","calories_burned","notes","name","session_id","type_exercise_id";',
+  errors: undefined
+}
+🔍 Erreur de clé étrangère: null

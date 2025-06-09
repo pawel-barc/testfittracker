@@ -1,3 +1,38 @@
+.sessions-list{
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  height: 80svh;
+  overflow-y: scroll;
+  padding-bottom: 10rem;
+  padding-top: 0.5rem;
+  width: 100%;
+  border-bottom: white solid 1px;
+}
+
+.add-session-container{
+  width: 100%;
+  padding-top: 3svh;
+}
+
+.session-card{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 2rem;
+}
+
+.view-details-btn{
+  all: unset;
+  cursor: pointer;
+  background-color: white;
+  border-radius: 10px;
+  height: 170px;
+  width: 170px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .session-wizard-close-button{
   width: 100%;
   display: flex;
@@ -213,3 +248,4 @@
   width: 2px;
   background-color: #00A5A3;
 }
+
