@@ -8,7 +8,9 @@ import Sessions from "../pages/Sessions";
 import PrivateLayout from "../layout/PrivateLayout";
 import PublicLayout from "../layout/PublicLayout";
 import useAuthStore from "../store/AuthStore";
-
+import NotificationsPage from "../pages/NotificationsPage";
+import GoalPage from "../pages/GoalPage";
+import CalendarPage from "../pages/CalendarPage";
 const Router = () => {
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
 
@@ -31,6 +33,12 @@ const Router = () => {
             <Route path="/sessions" element={<Sessions />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="*" element={<Navigate to="/" replace />} />
+            <Route
+              path="/notifications"
+              element={isAuthenticated ? <NotificationsPage /> : <Login />}
+            />
+            <Route path="/goals" element={<GoalPage />} />
+            <Route path="/calendar" element={<CalendarPage />} />
           </Route>
         )}
       </Routes>

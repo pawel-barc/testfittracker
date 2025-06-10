@@ -25,19 +25,20 @@ export const getSessions = async () => {
       headers: { "Content-Type": "application/json" },
       credentials: "include",
     });
-    
+
+    // ✅ VÉRIFICATION: Vérifier le content-type de la réponse
     const contentType = response.headers.get("content-type");
     if (!contentType || !contentType.includes("application/json")) {
       console.error("Réponse non-JSON reçue:", contentType);
       throw new Error(`Réponse non-JSON reçue: ${contentType}`);
     }
-    
+
     if (!response.ok) {
       const errorText = await response.text();
       console.error("Erreur API:", response.status, errorText);
       throw new Error(`Erreur ${response.status}: ${errorText}`);
     }
-    
+
     const data = await response.json();
     
     // 🔍 DEBUG: Vérifiez que category est bien présent
@@ -48,14 +49,19 @@ export const getSessions = async () => {
     })));
     
     return data;
-    
   } catch (error) {
     console.error("Erreur lors de la récupération des séances:", error);
-    
-    if (error.name === 'SyntaxError' && error.message.includes('Unexpected token')) {
-      throw new Error("Le serveur a retourné du HTML au lieu de JSON. Vérifiez l'URL de l'API et l'authentification.");
+
+    // ✅ GESTION D'ERREUR AMÉLIORÉE
+    if (
+      error.name === "SyntaxError" &&
+      error.message.includes("Unexpected token")
+    ) {
+      throw new Error(
+        "Le serveur a retourné du HTML au lieu de JSON. Vérifiez l'URL de l'API et l'authentification."
+      );
     }
-    
+
     throw error;
   }
 };

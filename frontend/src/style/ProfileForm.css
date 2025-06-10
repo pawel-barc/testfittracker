@@ -5,9 +5,10 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 1.5rem;
+  padding:0 1.5rem;
   border-radius: 10px;
   width: 50rem !important;
+  height: 95%;
   max-width: 100% !important;
   box-sizing: border-box;
   position: relative;

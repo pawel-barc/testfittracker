@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
-import { getGoals } from "../api/goalsApi";
+import { getGoals, deleteGoal } from "../api/goalsApi";
 import ProgressForm from "./ProgressForm";
 
 const GoalList = () => {
   const [goals, setGoals] = useState([]);
   const [refreshKey, setRefreshKey] = useState(0);
+  const [visibleFormId, setVisibleFormId] = useState(null);
 
   useEffect(() => {
     const fetchGoals = async () => {
@@ -14,9 +15,14 @@ const GoalList = () => {
     fetchGoals();
   }, [refreshKey]);
 
+  const handleDelete = async (goalId) => {
+    await deleteGoal(goalId);
+    setRefreshKey((prev) => prev + 1); // Refresh la liste après suppression
+  };
+
   return (
     <div>
-      <h2>🎯 Tes objectifs</h2>
+      <h2>Mes objectifs</h2>
       {goals.map((goal) => {
         const sortedProgress = [...(goal.progress || [])].sort(
           (a, b) => new Date(a.updated_at) - new Date(b.updated_at)
@@ -35,14 +41,7 @@ const GoalList = () => {
           : ((current - initial) / (target - initial)) * 100;
 
         percent = Math.min(Math.max(percent, 0), 100).toFixed(1);
-        console.log({
-          goal: goal.title,
-          progress: goal.progress,
-          initial,
-          current,
-          target,
-          percent,
-        });
+
         return (
           <div key={goal.id} style={{ marginBottom: "1rem" }}>
             <strong>{goal.title}</strong>
@@ -66,12 +65,33 @@ const GoalList = () => {
               ></div>
             </div>
             <small>{percent}% complété</small>
-            <ProgressForm
-              goalId={goal.id}
-              onProgressAdded={() => {
-                setRefreshKey((prev) => prev + 1);
-              }}
-            />
+
+            <div style={{ marginTop: "0.5rem" }}>
+              <button
+                onClick={() =>
+                  setVisibleFormId(visibleFormId === goal.id ? null : goal.id)
+                }
+              >
+                {visibleFormId === goal.id ? "Annuler" : "Modifier"}
+              </button>
+
+              <button
+                onClick={() => handleDelete(goal.id)}
+                style={{ marginLeft: "0.5rem", color: "red" }}
+              >
+                Supprimer
+              </button>
+            </div>
+
+            {visibleFormId === goal.id && (
+              <ProgressForm
+                goalId={goal.id}
+                onProgressAdded={() => {
+                  setRefreshKey((prev) => prev + 1);
+                  setVisibleFormId(null);
+                }}
+              />
+            )}
           </div>
         );
       })}

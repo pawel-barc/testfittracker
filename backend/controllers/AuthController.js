@@ -12,7 +12,8 @@ const {
 class AuthController {
   //Méthode pour l'inscription de l'utilisateur
   static register = async (req, res) => {
-    const { first_name, email, password, birth_date, gender, last_name } = req.body; //Récupération des données envoyées dans le corps de la requête
+    const { first_name, email, password, birth_date, gender, last_name } =
+      req.body; //Récupération des données envoyées dans le corps de la requête
     const avatar = req.file ? req.file.filename : null;
     //Tableau pour stocker les erreurs de validation
     const errors = [];
@@ -21,7 +22,7 @@ class AuthController {
     if (!validateLength(first_name, 3)) {
       errors.push('"Le nom est requis et doit contenir au moins 3 caractères"');
     }
-        if (!validateLength(last_name, 3)) {
+    if (!validateLength(last_name, 3)) {
       errors.push('"Le nom est requis et doit contenir au moins 3 caractères"');
     }
 
@@ -84,6 +85,12 @@ class AuthController {
       //Réponse de succès
       res.status(201).json({
         success: "Utilisateur inscrit!",
+        newUser: {
+          id: newUser.id,
+          first_name: newUser.first_name,
+          last_name: newUser.last_name,
+          email: newUser.email,
+        },
       });
     } catch (err) {
       //Gestion des erreurs internes du serveur et renvoi d'un message approprié
@@ -125,7 +132,8 @@ class AuthController {
         success: "Utilisateur connecté",
         user: {
           id: user.id,
-          name: user.name,
+          first_name: user.first_name,
+          last_name: user.last_name,
           email: user.email,
         },
       });

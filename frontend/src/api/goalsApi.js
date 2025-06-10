@@ -18,3 +18,12 @@ export const createGoal = async (data) => {
   });
   return res.json();
 };
+
+export const deleteGoal = async (goalId) => {
+  const res = await fetchWithRefresh(`http://localhost:8080/goals/${goalId}`, {
+    method: "DELETE",
+    headers: { "Content-Type": "application/json" },
+    credentials: "include",
+  });
+  return res.json();
+};

@@ -1,3 +1,209 @@
 .user-stat-page{
   color: white;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  backdrop-filter: blur(10px); /* Applique le flou */
+  height: 100%;
+  font-family: 'PP-Formula', sans-serif;
+}
+
+.user-stat-header{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+}
+
+.user-stat-header-right{
+  display: flex;
+  gap: 1rem;
+  height: 5svh;
+  align-items: center;
+  justify-content: center;
+}
+
+.user-stat-date{
+  background-color: white;
+  border-radius: 10px;
+  color: #424242;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 1rem;
+}
+
+.user-stat-header-right button{
+  background-color: white !important;
+  border-radius: 10px;
+  height: 100%;
+  padding: 0 1rem;
+}
+
+.user-stat-summary{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.user-stat-summary-item {
+  display: flex ;
+  flex-direction: row ;
+  align-items: center;
+  justify-content: space-between;
+  background-color: white;
+  border-radius: 10px;
+  color: black;
+  width: 10rem;
+  padding: 1rem 1rem;
+}
+
+.user-stat-summary-item p{
+  margin: 0;
+}
+
+.user-stat-summary-item h2{
+  margin: 0;
+}
+
+.user-stat-summary-item img{
+  width: 2.5rem;
+  height: 2.5rem;
+  margin-right: 0.5rem;
+  background-color: #00A5A3;
+  border-radius: 10px;
+  padding: 0.2rem;
+}
+
+.react-calendar{
+  border: none;
+}
+
+.user-calendar{
+  background-color: white;
+  border-radius: 20px;
+  padding: 0.5rem;
+  color: black;
+  max-width: 20rem;
+}
+
+.user-calendar h2{
+  color: black;
+  text-align: start;
+  margin: 0.5rem 0;
+}
+
+.add-session-calendar-button{
+  all: unset;
+  background-color: #00A5A3;
+  padding: 0.2rem;
+  border-radius: 10px;
+  cursor: pointer;
+  width: 2rem;
+  height: 2rem;
+}
+
+
+.add-session-calendar-button:hover{
+  opacity: 0.8;
+}
+
+.user-calendar-header{
+  display: 	flex;
+  justify-content: space-between;
+}
+
+.calendar-page{
+  display: flex;
+  flex-direction: column;
+  align-items: center; 
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+ }
+
+ .user-stat-right{
+  color: black;
+  background-color: white;
+  border-radius: 20px;
+  margin-top: 2rem;
+  padding: 2rem;
+  max-height: 85svh;
+  overflow-y: scroll;
+ }
+
+  .user-stat-right h1{
+    margin: 0;
+    text-align: center;
+    color: black;
+  }
+
+  .latest-stat-header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+  }
+
+  .latest-stat-number{
+    background-color: #00A5A3;
+    padding: 1rem;
+    border-radius: 10px;
+  }
+
+  .latest-stat-title{
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+  }
+
+  .user-stat-right-header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+
+.user-stat-right-header button{
+  background-color: #7e7e7e !important;
+}
+
+.user-stat-right-header button:hover{
+   opacity: 0.8;
+  }
+
+  .modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 500px;
+  position: relative;
+}
+
+.modal-close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
 }

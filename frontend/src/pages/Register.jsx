@@ -45,7 +45,7 @@ const Register = () => {
 
         if (apiResponse.success) {
           console.log(apiResponse);
-          login();
+          login(apiResponse.user);
           navigate("/");
         } else if (apiResponse.error) {
           setErrorMessage(apiResponse.error);
