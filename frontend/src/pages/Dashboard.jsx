@@ -4,6 +4,7 @@ import GoalForm from "../components/GoalForm";
 import GoalList from "../components/GoalList";
 import Notifications from "../components/Notifications";
 import { useState } from "react";
+import '../style/Dashboard.css';
 
 const Dashboard = () => {
   const [refreshKey, setRefreshKey] = useState(0);

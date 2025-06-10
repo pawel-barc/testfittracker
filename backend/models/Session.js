@@ -14,7 +14,6 @@ const Session = db.define(
       type: DataTypes.DATE,
       allowNull: false,
     },
-
     duration: {
       type: DataTypes.FLOAT,
       allowNull: false,
@@ -26,6 +25,11 @@ const Session = db.define(
     title: {
       type: DataTypes.TEXT,
       allowNull: false,
+    },
+    // 🆕 AJOUT DE LA COLONNE CATEGORY
+    category: {
+      type: DataTypes.STRING(255), // ou DataTypes.TEXT selon vos besoins
+      allowNull: true, // true si la catégorie peut être optionnelle
     },
     user_id: {
       type: DataTypes.INTEGER,
@@ -41,4 +45,5 @@ const Session = db.define(
     timestamps: false,
   }
 );
+
 module.exports = Session;

@@ -60,6 +60,9 @@ router.get(
 // Session routes
 router.get("/sessions", verifyToken, SessionController.getUserSession);
 router.post("/sessions", verifyToken, SessionController.createSession);
+// ✅ NOUVELLES ROUTES pour les sessions
+router.get("/sessions/:id", verifyToken, SessionController.getSessionById); // Optionnel
+router.delete("/sessions/:id", verifyToken, SessionController.deleteSession); // ← NOUVELLE ROUTE
 
 // Session Exercises routes
 router.post(

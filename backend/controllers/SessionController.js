@@ -2,68 +2,113 @@ const Session = require("../models/Session");
 const SessionExercise = require("../models/SessionExercise");
 
 class SessionController {
-  static getUserSession = async (req, res) => {
+  static async getUserSession(req, res) {
     try {
-      console.log("Requête reçue pour /sessions");
-      
-      // ✅ CORRECTION : Utiliser le modèle Session au lieu de getSessionsFromDB
       const sessions = await Session.findAll({
         where: { user_id: req.user.id },
-        order: [['date', 'DESC']], // Plus récentes en premier
-        include: [
-          {
-            model: SessionExercise,
-            required: false
-          }
-        ]
+        order: [['date', 'DESC']] // ✅ Utilise 'date' au lieu de 'created_at'
       });
-      
-      console.log("Séances récupérées :", sessions);
-      res.status(200).json(sessions);
+      res.json(sessions);
     } catch (err) {
-      console.error("Erreur dans getUserSession :", err);
+      console.error("Erreur lors de la récupération des sessions:", err);
       res.status(500).json({ 
         error: "Erreur interne du serveur", 
         message: err.message 
       });
     }
-  };
+  }
 
   static async createSession(req, res) {
     try {
-      const { notes, duration, title, exercises = [] } = req.body;
-      const date = new Date();
+      const sessionData = {
+        ...req.body,
+        user_id: req.user.id
+      };
       
-      console.log("Création session avec:", { title, duration, notes, user_id: req.user.id });
-      
-      const session = await Session.create({
-        user_id: req.user.id,
-        date,
-        notes,
-        duration,
-        title,
+      const session = await Session.create(sessionData);
+      res.status(201).json(session);
+    } catch (err) {
+      console.error("Erreur lors de la création de session:", err);
+      res.status(400).json({ 
+        error: "Données invalides", 
+        message: err.message 
+      });
+    }
+  }
+
+  static async deleteSession(req, res) {
+    try {
+      const sessionId = req.params.id;
+      const userId = req.user.id;
+
+      console.log(`🗑️ Tentative de suppression de la session ${sessionId} par l'utilisateur ${userId}`);
+
+      // Vérifier que la session existe et appartient à l'utilisateur
+      const session = await Session.findOne({
+        where: { 
+          id: sessionId, 
+          user_id: userId 
+        }
       });
 
-      console.log("Session créée:", session.toJSON());
-
-      // Créer les exercices associés
-      for (const ex of exercises) {
-        await SessionExercise.create({
-          session_id: session.id,
-          type_exercise_id: ex.typeExerciseId || null,
-          name: ex.name || null,
-          notes: ex.notes || null,
+      if (!session) {
+        console.log(`❌ Session ${sessionId} introuvable ou non autorisée`);
+        return res.status(404).json({ 
+          error: "Session introuvable ou non autorisée" 
         });
       }
-      
-      // ✅ CORRECTION : Retourner la session avec un format cohérent
-      res.status(201).json({
-        session: session.toJSON() // Utiliser toJSON() pour avoir un objet propre
+
+      // Supprimer d'abord tous les exercices de la session
+      const deletedExercises = await SessionExercise.destroy({
+        where: { session_id: sessionId }
       });
+
+      console.log(`🗑️ ${deletedExercises} exercices supprimés de la session ${sessionId}`);
+
+      // Supprimer la session
+      await session.destroy();
+
+      console.log(`✅ Session ${sessionId} supprimée avec succès`);
+
+      res.json({ 
+        message: "Session supprimée avec succès",
+        deletedExercises: deletedExercises,
+        sessionId: sessionId
+      });
+
     } catch (err) {
-      console.error("Erreur création session:", err);
-      res.status(400).json({ 
-        error: "Données pas valides", 
+      console.error("💥 Erreur lors de la suppression:", err);
+      res.status(500).json({ 
+        error: "Erreur interne du serveur", 
+        message: err.message,
+        details: err.stack
+      });
+    }
+  }
+
+  static async getSessionById(req, res) {
+    try {
+      const sessionId = req.params.id;
+      const userId = req.user.id;
+
+      const session = await Session.findOne({
+        where: { 
+          id: sessionId, 
+          user_id: userId 
+        }
+      });
+
+      if (!session) {
+        return res.status(404).json({ 
+          error: "Session introuvable" 
+        });
+      }
+
+      res.json(session);
+    } catch (err) {
+      console.error("Erreur lors de la récupération de session:", err);
+      res.status(500).json({ 
+        error: "Erreur interne du serveur", 
         message: err.message 
       });
     }

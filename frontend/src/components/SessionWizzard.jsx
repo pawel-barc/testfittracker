@@ -1,10 +1,10 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { createSession } from "../api/sessionApi";
 import { getExerciseCategories } from "../api/exerciseCategoriesApi";
 import { getTypeExercises } from "../api/typeExerciseApi";
 import { addSessionExercise } from "../api/sessionExerciseApi";
 import ExerciseDetailsForm from "./ExerciseDetailsForm";
-import sessionCategories from "../../public/sessionCategories.json";
+import sessionCategories from "../sessionCategories.json";
 
 const SessionWizard = ({ onFinish }) => {
   const [step, setStep] = useState(1);
@@ -19,6 +19,7 @@ const SessionWizard = ({ onFinish }) => {
   const [selectedExercises, setSelectedExercises] = useState([]);
   const [customExercise, setCustomExercise] = useState("");
   const [addedExercises, setAddedExercises] = useState([]);
+  const exerciseDetailsFormRef = useRef();
 
   // Debug pour suivre sessionId
   useEffect(() => {
@@ -103,7 +104,7 @@ const SessionWizard = ({ onFinish }) => {
     }
   };
 
-  // ✅ CORRECTION PRINCIPALE : Améliorer la gestion de la création de session
+
   const handleSessionSubmit = async (e) => {
     e.preventDefault();
     setError(null);
@@ -117,6 +118,7 @@ const SessionWizard = ({ onFinish }) => {
         duration,
         notes,
         date: now,
+        category: selectedCategory.name
       });
       
       console.log("📦 Réponse complète API session:", sessionResponse);
@@ -128,28 +130,28 @@ const SessionWizard = ({ onFinish }) => {
       // Cas 1: Réponse directe avec ID
       if (typeof sessionResponse === 'number' && sessionResponse > 0) {
         extractedSessionId = sessionResponse;
-        console.log("✅ Cas 1: ID direct:", extractedSessionId);
+        // console.log("✅ Cas 1: ID direct:", extractedSessionId);
       }
       // Cas 2: Objet avec propriété id
       else if (sessionResponse && typeof sessionResponse === 'object') {
         if (sessionResponse.id && Number.isInteger(Number(sessionResponse.id))) {
           extractedSessionId = Number(sessionResponse.id);
-          console.log("✅ Cas 2: session.id:", extractedSessionId);
+          // console.log("✅ Cas 2: session.id:", extractedSessionId);
         }
         // Cas 3: Objet imbriqué session.data.id
         else if (sessionResponse.data && sessionResponse.data.id) {
           extractedSessionId = Number(sessionResponse.data.id);
-          console.log("✅ Cas 3: session.data.id:", extractedSessionId);
+          // console.log("✅ Cas 3: session.data.id:", extractedSessionId);
         }
         // Cas 4: Objet imbriqué session.session.id
         else if (sessionResponse.session && sessionResponse.session.id) {
           extractedSessionId = Number(sessionResponse.session.id);
-          console.log("✅ Cas 4: session.session.id:", extractedSessionId);
+          // console.log("✅ Cas 4: session.session.id:", extractedSessionId);
         }
         // Cas 5: Propriété insertId (MySQL)
         else if (sessionResponse.insertId) {
           extractedSessionId = Number(sessionResponse.insertId);
-          console.log("✅ Cas 5: insertId:", extractedSessionId);
+          // console.log("✅ Cas 5: insertId:", extractedSessionId);
         }
       }
       
@@ -157,8 +159,8 @@ const SessionWizard = ({ onFinish }) => {
       
       // ✅ VALIDATION STRICTE DE L'ID
       if (!extractedSessionId || isNaN(extractedSessionId) || extractedSessionId <= 0) {
-        console.error("❌ ID de session invalide:", extractedSessionId);
-        console.error("📋 Structure complète de la réponse:", JSON.stringify(sessionResponse, null, 2));
+        // console.error("❌ ID de session invalide:", extractedSessionId);
+        // console.error("📋 Structure complète de la réponse:", JSON.stringify(sessionResponse, null, 2));
         
         // Afficher un message d'erreur détaillé
         setError(`❌ Erreur: Impossible d'extraire l'ID de la session.
@@ -436,7 +438,7 @@ const SessionWizard = ({ onFinish }) => {
       <div className="session-wizard">
         <div className="session-wizard-close-button">
           <button onClick={onFinish} className="close-button">
-            <img src="../../public/images/close-cross.png" alt="close cross" />
+            <img src="/images/close-cross.png" alt="close cross" />
           </button>
         </div>
 
@@ -476,7 +478,7 @@ const SessionWizard = ({ onFinish }) => {
       <div className="session-wizard-step2">
         <div className="session-wizard-close-button">
           <button onClick={onFinish} className="close-button">
-            <img src="../../public/images/close-cross.png" alt="close cross" />
+            <img src="/images/close-cross.png" alt="close cross" />
           </button>
         </div>
         <h2>NOUVELLE SEANCE</h2>
@@ -536,14 +538,14 @@ const SessionWizard = ({ onFinish }) => {
       <div className="session-wizard">
         <div className="session-wizard-close-button">
           <button onClick={onFinish} className="close-button">
-            <img src="../../public/images/close-cross.png" alt="close cross" />
+            <img src="/images/close-cross.png" alt="close cross" />
           </button>
         </div>
         <h2>NOUVELLE SEANCE</h2>
         <p>Etape 3/5</p>
         
         {/* 🔍 SECTION DEBUG - AMÉLIORÉE */}
-        <div style={{ background: '#f0f0f0', padding: '10px', margin: '10px 0', fontSize: '12px' }}>
+        {/* <div style={{ background: '#f0f0f0', padding: '10px', margin: '10px 0', fontSize: '12px' }}>
           <strong>🐛 DEBUG INFO:</strong><br/>
           SessionId: {sessionId} (Type: {typeof sessionId})<br/>
           SessionId valide: {!isNaN(Number(sessionId)) && Number(sessionId) > 0 ? "✅ OUI" : "❌ NON"}<br/>
@@ -554,7 +556,7 @@ const SessionWizard = ({ onFinish }) => {
           Catégories DB disponibles: {categories.length}<br/>
           {!selectedCategory?.id && <span style={{color: 'red'}}>🚨 PROBLÈME: L'ID de catégorie est manquant!</span>}<br/>
           {exercises.length === 0 && selectedCategory?.id && <span style={{color: 'orange'}}>⚠️ Aucun exercice trouvé pour cette catégorie!</span>}
-        </div>
+        </div> */}
 
         <h3>Ajouter des exercices</h3>
         <div className="exercise-selection">
@@ -572,12 +574,7 @@ const SessionWizard = ({ onFinish }) => {
             ) : exercises.length === 0 ? (
               <div style={{ padding: '20px', background: '#fff3cd', border: '1px solid #ffeaa7' }}>
                 <p>🤔 Aucun exercice suggéré pour cette catégorie.</p>
-                <p>Vérifiez que:</p>
-                <ul>
-                  <li>L'API getTypeExercises() fonctionne</li>
-                  <li>Les exercices ont le bon exercise_category_id ({selectedCategory.id})</li>
-                  <li>Des exercices existent pour cette catégorie</li>
-                </ul>
+
               </div>
             ) : (
               <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem" }}>
@@ -667,48 +664,98 @@ const SessionWizard = ({ onFinish }) => {
 
   if (step === 4) {
     console.log("Step 4 - SessionId actuel:", sessionId);
+    
+    // Fonction pour gérer le passage à l'étape suivante avec sauvegarde
+    const handleNextStep = () => {
+      if (exerciseDetailsFormRef.current) {
+        try {
+          const success = exerciseDetailsFormRef.current.saveData();
+          if (success) {
+            console.log("✅ Détails des exercices sauvegardés");
+            setStep(5);
+          } else {
+            alert("❌ Erreur lors de la sauvegarde des détails");
+          }
+        } catch (error) {
+          console.error("❌ Erreur lors de la sauvegarde:", error);
+          alert("❌ Erreur lors de la sauvegarde des détails");
+        }
+      } else {
+        console.error("❌ Référence du formulaire non disponible");
+        alert("❌ Erreur: Impossible de sauvegarder les détails");
+      }
+    };
+
     return (
       <div className="session-wizard">
-        <h2>Détails des exercices</h2>
-        <div style={{ background: '#f0f0f0', padding: '10px', margin: '10px 0', fontSize: '12px' }}>
-          <strong>🐛 Step 4 DEBUG:</strong> SessionId: {sessionId} (Type: {typeof sessionId})
+        <div className="session-wizard-close-button">
+          <button onClick={onFinish} className="close-button">
+            <img src="/images/close-cross.png" alt="close cross" />
+          </button>
         </div>
+        
+        <h2>NOUVELLE SEANCE</h2>
+        <p>Étape 4/5</p>
+        <h3>Détails des exercices</h3>
+        
+        {/* <div style={{ background: '#f0f0f0', padding: '10px', margin: '10px 0', fontSize: '12px' }}>
+          <strong>🐛 Step 4 DEBUG:</strong> SessionId: {sessionId} (Type: {typeof sessionId})
+        </div> */}
+        
         <ExerciseDetailsForm
+          ref={exerciseDetailsFormRef}
           selectedExercises={selectedExercises}
           addedExercises={addedExercises}
           setAddedExercises={setAddedExercises}
         />
-        <button onClick={() => setStep(5)}>Suivant</button>
+        
+        <button 
+          onClick={handleNextStep}
+          className="next-step-button"
+          style={{ marginTop: '20px' }}
+        >
+          Étape suivante
+        </button>
       </div>
     );
   }
 
   if (step === 5) {
     return (
-      <div>
-        <h3>✅ Résumé de la séance</h3>
-        <p>SessionId: {sessionId}</p> {/* Debug temporaire */}
-        <p>
-          <strong>Titre:</strong> {title}
-        </p>
-        <p>
-          <strong>Durée:</strong> {duration} min
-        </p>
-        <p>
-          <strong>Notes:</strong> {notes}
-        </p>
+      <div className="session-wizard-resume">
+            <h3>Résumé de la séance</h3>
 
-        <h4>📝 Exercices:</h4>
-        <ul>
-          {addedExercises.map((ex, idx) => (
-            <li key={idx}>
-              {ex.name} – séries: {ex.sets || 0}, répétitions: {ex.reps || 0},
-              poids: {ex.weight_used || 0}kg
-            </li>
-          ))}
-        </ul>
+        <div className="session-wizard-resume-both-parts">
 
-        <button onClick={handleSaveAll}>💾 Enregistrer la séance</button>
+          <div className="session-wizard-resume-part1">
+            {/* <p>SessionId: {sessionId}</p> Debug temporaire */}
+            <div>
+              <strong>Titre:</strong> 
+              <p>{title}</p>
+            </div>
+            <div>
+              <strong>Durée:</strong> 
+              <p>{duration} min</p>
+            </div>
+            <div>
+              <strong>Notes:</strong> 
+              <p>{notes}</p>
+            </div>
+          </div>
+          <div className="session-wizard-resume-part2">
+            <h4>Exercices:</h4>
+            <ul>
+              {addedExercises.map((ex, idx) => (
+                <li key={idx}>
+                  {ex.name} – séries: {ex.sets || 0}, répétitions: {ex.reps || 0},
+                  poids: {ex.weight_used || 0}kg
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        <button className="btn-session-wizard-resume" onClick={handleSaveAll}>Enregistrer la séance</button>
       </div>
     );
   }

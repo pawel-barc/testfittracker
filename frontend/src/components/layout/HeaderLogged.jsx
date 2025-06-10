@@ -45,7 +45,7 @@ const HeaderLogged = () => {
       <img
         className="logo-fitrack"
         alt="Logo background"
-        src={"../../../public/images/logo-fitrack.png"}
+        src={"..//images/logo-fitrack.png"}
       />
       </div>
 
@@ -55,8 +55,8 @@ const HeaderLogged = () => {
         alt="Dashboard"
         src={
           isActive("/")
-            ? "../../../public/images/dashboard-icon-active.svg"
-            : "../../../public/images/dashboard-icon.svg"
+            ? "/images/dashboard-icon-active.svg"
+            : "/images/dashboard-icon.svg"
         }
       />
     </Link>
@@ -67,8 +67,8 @@ const HeaderLogged = () => {
         alt="Sessions"
         src={
           isActive("/sessions")
-            ? "../../../public/images/sessions-icon-active.svg"
-            : "../../../public/images/sessions-icon.svg"
+            ? "/images/sessions-icon-active.svg"
+            : "/images/sessions-icon.svg"
         }
       />
     </Link>
@@ -79,8 +79,8 @@ const HeaderLogged = () => {
         alt="Profile"
         src={
           isActive("/profile")
-            ? "../../../public/images/profile-icon-active.svg"
-            : "../../../public/images/profile-icon.svg"
+            ? "/images/profile-icon-active.svg"
+            : "/images/profile-icon.svg"
         }
       />
     </Link>
@@ -92,7 +92,7 @@ const HeaderLogged = () => {
           disabled={isLoggingOut}
         >
           <img 
-            src={isLoggingOut ? "../../../public/images/logout-btn.svg" : "../../../public/images/logout-btn.svg"} 
+            src={isLoggingOut ? "..//images/logout-btn.svg" : "..//images/logout-btn.svg"} 
             alt={isLoggingOut ? "Déconnexion en cours" : "Déconnexion"} 
           />
         </button>

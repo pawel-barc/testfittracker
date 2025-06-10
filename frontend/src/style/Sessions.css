@@ -24,13 +24,18 @@
 .view-details-btn{
   all: unset;
   cursor: pointer;
-  background-color: white;
+  background-color: #00A5A3;
   border-radius: 10px;
   height: 170px;
   width: 170px;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.view-details-btn:hover {
+  background-color: #005856;
+
 }
 
 .session-wizard-close-button{
@@ -205,15 +210,72 @@
   padding:  0 2rem 0 2rem;
 }
 
-.user-exercices{
+/* .user-exercices{
   display: grid;
   grid-template-columns: repeat(2,0fr);
   gap: 1rem;
-}
+  padding:0 5rem 0 5rem;
+} */
 
 .exercise-details{
   border: #010101 solid 1px;
 }
+
+.form-user-exercices{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  align-items: center;
+  justify-content: center;
+  gap: 5rem;
+  height: 50svh;
+  overflow-y: scroll;
+  width: 50rem;
+  padding: 2rem;
+}
+
+.form-exercise-details{
+  color: #424242;
+  font-size: larger;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem;
+  border-radius: 10px;
+  width: 100%;
+}
+
+.form-exercise-details input
+{
+    width: 100%;
+  border-radius: 5px;
+  height: 2.5rem;
+  border: none;
+  background-color: #ffffff;
+  margin-top: 0.3rem;
+  padding: 0 0.5rem;
+  font-family: inherit;
+  box-sizing: border-box;
+}
+
+.form-exercise-details textarea{
+      width: 100%;
+  border-radius: 5px;
+  height: 2.5rem;
+  border: none;
+  background-color: #ffffff;
+  margin-top: 0.3rem;
+  padding:0 1.2rem 0.5rem;
+  font-family: inherit;
+  box-sizing: border-box;
+}
+
+
+.form-exercise-details label{
+  display: grid;
+  justify-items: start;
+}
+
 
 .exercise-selection input{
   width: 80%;
@@ -249,3 +311,81 @@
   background-color: #00A5A3;
 }
 
+.form-exercise-fields{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  background-color: #00A5A3;
+  padding: 1rem;
+  border-radius: 10px;
+  color: white;
+}
+
+.session-wizard-resume{
+  background-color: white;
+  color:#010101;
+  width: 40rem;
+  border-radius: 20px;
+  padding: 2rem;
+}
+
+.session-wizard-resume h3{
+  font-size: 3rem;
+  margin: 0;
+  padding-bottom: 3svh;
+  color: #424242;
+}
+
+.session-wizard-resume-part1{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: start;
+  padding: 1rem;
+}
+
+.session-wizard-resume-part1 p{
+  background-color: #D3D3D3;
+  padding: 1rem;
+  border-radius: 10px;
+  
+}
+
+.session-wizard-resume-both-parts{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  ;
+}
+
+.btn-session-wizard-resume{
+  all: unset;
+  cursor: pointer;
+  background-color: #00A5A3;
+  color: white;
+  border-radius: 10px;
+  padding: 1rem;
+  width: 60%;
+  text-align: center;
+  margin-top: 5svh;
+}
+
+.btn-session-wizard-resume:hover{
+  background-color: #005856;
+}
+
+.session-wizard-resume-part2{
+  border-left:#00A5A3 solid 1px;
+}
+
+.session-wizard-resume-part1 div{
+  width: 100%;
+  text-align: start;
+}
+
+.session-wizard-resume-part2 ul{
+  display: flex;
+  flex-direction: column;
+  overflow-y: scroll;
+  max-height: 30svh;
+  gap: 5svh;
+}

@@ -2,113 +2,8 @@ import SessionWizard from "../components/SessionWizzard";
 import '../style/Sessions.css';
 import { useState, useEffect } from "react";
 import { getSessions } from "../api/sessionApi";
-import sessionCategories from "../../public/sessionCategories.json";
-
-// Composant Modal pour afficher les détails d'une session
-const SessionModal = ({ session, onClose }) => {
-  if (!session) return null;
-
-  return (
-    <div className="modal-overlay" onClick={onClose}>
-      <div className="modal-content" onClick={e => e.stopPropagation()}>
-        <div className="modal-header">
-          <h2>{session.title}</h2>
-          <button className="modal-close-btn" onClick={onClose}>×</button>
-        </div>
-        
-        <div className="modal-body">
-          <div className="session-info">
-            <div className="info-item">
-              <strong>Date :</strong> {new Date(session.date).toLocaleDateString('fr-FR', {
-                weekday: 'long',
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric'
-              })}
-            </div>
-            
-            <div className="info-item">
-              <strong>Durée :</strong> {session.duration} minutes
-            </div>
-            
-            {session.notes && (
-              <div className="info-item">
-                <strong>Notes :</strong>
-                <p className="notes-content">{session.notes}</p>
-              </div>
-            )}
-          </div>
-
-          {/* Liste des exercices */}
-          <div className="exercises-section">
-            <h3>Exercices ({session.exercises?.length || 0})</h3>
-            {session.exercises && session.exercises.length > 0 ? (
-              <div className="exercises-list">
-                {session.exercises.map((exercise, index) => (
-                  <div key={exercise.id || index} className="exercise-card">
-                    <div className="exercise-header">
-                      <h4>{exercise.name || `Exercice ${index + 1}`}</h4>
-                      {exercise.category && (
-                        <span className="exercise-category">{exercise.category}</span>
-                      )}
-                    </div>
-                    
-                    <div className="exercise-details">
-                      {exercise.sets && (
-                        <div className="exercise-sets">
-                          <strong>Séries :</strong>
-                          <div className="sets-list">
-                            {exercise.sets.map((set, setIndex) => (
-                              <div key={setIndex} className="set-item">
-                                <span>Série {setIndex + 1}:</span>
-                                {set.reps && <span>{set.reps} reps</span>}
-                                {set.weight && <span>{set.weight} kg</span>}
-                                {set.duration && <span>{set.duration}s</span>}
-                                {set.distance && <span>{set.distance}m</span>}
-                              </div>
-                            ))}
-                          </div>
-                        </div>
-                      )}
-                      
-                      {exercise.duration && !exercise.sets && (
-                        <div><strong>Durée :</strong> {exercise.duration} secondes</div>
-                      )}
-                      
-                      {exercise.reps && !exercise.sets && (
-                        <div><strong>Répétitions :</strong> {exercise.reps}</div>
-                      )}
-                      
-                      {exercise.weight && !exercise.sets && (
-                        <div><strong>Poids :</strong> {exercise.weight} kg</div>
-                      )}
-                      
-                      {exercise.distance && (
-                        <div><strong>Distance :</strong> {exercise.distance} m</div>
-                      )}
-                      
-                      {exercise.notes && (
-                        <div className="exercise-notes">
-                          <strong>Notes :</strong> {exercise.notes}
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            ) : (
-              <p className="no-exercises">Aucun exercice enregistré pour cette séance</p>
-            )}
-          </div>
-        </div>
-        
-        <div className="modal-footer">
-          <button className="btn-secondary" onClick={onClose}>Fermer</button>
-        </div>
-      </div>
-    </div>
-  );
-};
+import sessionCategories from "../sessionCategories.json";
+import SessionModal from "../components/SessionModal";
 
 const Sessions = () => {
   const [refreshKey, setRefreshKey] = useState(0);
@@ -229,8 +124,15 @@ const Sessions = () => {
     
     console.log("🔄 Utilisation de l'image par défaut");
     // Image par défaut
-    return "../../public/images/default-session-icon.png";
+    // return "/images/default-session-icon.png";
   };
+
+  // Fonction pour trier les sessions par date décroissante (plus récente en premier)
+const sortSessionsByDate = (sessionsArray) => {
+  return [...sessionsArray].sort((a, b) => {
+    return b.id - a.id; // Tri décroissant par ID
+  });
+};
 
   // Fonction pour charger les séances
   useEffect(() => {
@@ -238,7 +140,9 @@ const Sessions = () => {
       try {
         setIsLoading(true);
         const data = await getSessions();
-        setSessions(data);
+        // Trier les sessions par date décroissante
+        const sortedSessions = sortSessionsByDate(data);
+        setSessions(sortedSessions);
         setError(null);
       } catch (err) {
         console.error("Erreur lors du chargement des séances:", err);
@@ -268,6 +172,12 @@ const Sessions = () => {
     setSelectedSession(null);
   };
 
+  // Fonction appelée après suppression d'une session
+  const handleSessionDeleted = () => {
+    setSelectedSession(null);
+    setRefreshKey(prev => prev + 1); // Recharger la liste des sessions
+  };
+
   return (
     <div className="home-container">
       {!showWizard ? (
@@ -289,12 +199,8 @@ const Sessions = () => {
                   >
                     <img
                       className="category-icon"
-                      src={getCategoryImage(session)}
+                      src={getCategoryImage(session) || '/images/session-placeholder.png'}
                       alt={`Icône de catégorie`}
-                      onError={(e) => {
-                        // Image de fallback si l'image spécifique n'existe pas
-                        e.target.src = "../../public/images/default-session-icon.png";
-                      }}
                     />
                   </button>
                   <h3>{session.title}</h3>
@@ -308,7 +214,7 @@ const Sessions = () => {
             <button className="add-session-btn" onClick={handleStartWizard}>
               <img
                 className="add-session-img"
-                src="../../public/images/add-session-icon.png"
+                src="/images/add-session-icon.png"
                 alt="Sessions Icon"
               />
             </button>
@@ -323,7 +229,8 @@ const Sessions = () => {
       {selectedSession && (
         <SessionModal 
           session={selectedSession} 
-          onClose={handleCloseModal} 
+          onClose={handleCloseModal}
+          onSessionDeleted={handleSessionDeleted}
         />
       )}
     </div>
