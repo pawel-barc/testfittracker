@@ -370,7 +370,7 @@
 }
 
 .btn-session-wizard-resume:hover{
-  background-color: #005856;
+  opacity: 0.7;
 }
 
 .session-wizard-resume-part2{
