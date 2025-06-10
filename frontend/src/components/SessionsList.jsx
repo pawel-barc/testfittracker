@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getUserSessions } from "../api/sessionApi";
+import { getSessions } from "../api/sessionApi";
 import { useNavigate } from "react-router-dom";
 
 const SessionsList = () => {
@@ -8,7 +8,7 @@ const SessionsList = () => {
 
   useEffect(() => {
     const fetchSessions = async () => {
-      const data = await getUserSessions();
+      const data = await getSessions();
       setSessions(data);
     };
     fetchSessions();

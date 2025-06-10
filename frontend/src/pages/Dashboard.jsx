@@ -1,9 +1,10 @@
 import AddUserStatForm from "../components/AddUserStatForm";
 import UserStatList from "../components/UserStatList";
-import GoalForm from "../components/GoalForm";
+import ActivityHistory from "../components/ActivityHistory";
 import GoalList from "../components/GoalList";
 import Notifications from "../components/Notifications";
 import CalendarPage from "./CalendarPage";
+import SessionsList from "../components/SessionsList";
 import { useState } from "react";
 import useAuthStore from "../store/AuthStore";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -76,6 +77,8 @@ const Dashboard = () => {
         </button>
       </div>
       <hr />
+      <ActivityHistory />
+      <hr />
       <h1 style={{ textAlign: "center" }}>
         {user.first_name} {user.last_name}
       </h1>
@@ -101,6 +104,7 @@ const Dashboard = () => {
 
       <GoalList />
       <hr />
+      <SessionsList />
       <hr />
     </div>
   );
