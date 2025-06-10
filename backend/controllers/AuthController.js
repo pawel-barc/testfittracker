@@ -85,7 +85,7 @@ class AuthController {
       //Réponse de succès
       res.status(201).json({
         success: "Utilisateur inscrit!",
-        newUser: {
+        user: {
           id: newUser.id,
           first_name: newUser.first_name,
           last_name: newUser.last_name,

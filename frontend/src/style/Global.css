@@ -13,5 +13,10 @@ body{
   background-size: 100% auto;
   backdrop-filter: blur(10px); /* Applique le flou */
   -webkit-backdrop-filter: blur(10px); /* Compatibilité Safari */
+  font-family: 'PP-Formula', sans-serif;
 }
 
+
+.error-message{
+  color: red;
+}

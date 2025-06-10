@@ -146,6 +146,7 @@
     justify-content: space-between;
     align-items: center;
     text-align: center;
+    margin-bottom: 2svh;
   }
 
   .latest-stat-number{
@@ -206,4 +207,75 @@
   border: none;
   font-size: 1.5rem;
   cursor: pointer;
+}
+
+.stat-form{
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.add-goal-button{
+  background-color: #00A5A3;
+  color: white;
+  padding: 0.5rem;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  text-align: center;
+  border-radius: 10px;
+}
+
+.add-goal-button:hover{
+  opacity: 0.8;
+}
+
+.add-goal-button img{
+  width: 20px;
+}
+
+.session-list-item{
+  all:unset;
+  display: flex;
+  flex-direction: column;
+  margin: 1svh;
+  width: 80%;
+
+}
+
+.session-list-item button{
+  background-color: #00A5A3;
+  border-radius: 10px;
+  padding: 1rem;
+  cursor: pointer;
+  border: none;
+  width: 15rem;
+}
+
+.session-list-div{
+  max-height: 35svh;
+  overflow-y: scroll;
+}
+
+.edit-goal-button,
+.delete-goal-button{
+  all: unset;
+  color: white;
+  padding: 0.5rem;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.edit-goal-button:hover,
+.delete-goal-button:hover{
+  opacity: 0.7;
+}
+
+.edit-goal-button{
+  background-color: #424242;
+}
+
+.delete-goal-button{
+  background-color: red;
+  color: white;
 }

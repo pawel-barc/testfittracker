@@ -188,7 +188,7 @@ const sortSessionsByDate = (sessionsArray) => {
           ) : error ? (
             <p className="error-message">{error}</p>
           ) : sessions.length === 0 ? (
-            <p>Aucune séance enregistrée</p>
+            <p>(Aucune séance enregistrée)</p>
           ) : (
             <div className="sessions-list">
               {sessions.map(session => (

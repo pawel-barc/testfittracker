@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import { getGoals, deleteGoal } from "../api/goalsApi";
 import ProgressForm from "./ProgressForm";
+import { useNavigate } from "react-router-dom";
 
 const GoalList = () => {
   const [goals, setGoals] = useState([]);
   const [refreshKey, setRefreshKey] = useState(0);
   const [visibleFormId, setVisibleFormId] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchGoals = async () => {
@@ -17,12 +19,21 @@ const GoalList = () => {
 
   const handleDelete = async (goalId) => {
     await deleteGoal(goalId);
-    setRefreshKey((prev) => prev + 1); // Refresh la liste après suppression
+    setRefreshKey((prev) => prev + 1);
   };
 
   return (
     <div>
-      <h2>Mes objectifs</h2>
+      <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
+        <h2>Mes objectifs</h2>
+        <button
+          className="add-goal-button"
+          onClick={() => navigate("/goals")}
+        >
+          <img src="/images/pencil.png" alt="Modifier les objectifs" />
+        </button>
+      </div>
+      
       {goals.map((goal) => {
         const sortedProgress = [...(goal.progress || [])].sort(
           (a, b) => new Date(a.updated_at) - new Date(b.updated_at)
@@ -44,9 +55,9 @@ const GoalList = () => {
 
         return (
           <div key={goal.id} style={{ marginBottom: "1rem" }}>
+            <p style={{ display: "flex", alignItems: "center", justifyContent:'space-between', gap: "0.5rem" }}>
             <strong>{goal.title}</strong>
-            <p>
-              Valeur actuelle: {current} / {target}
+               {current} / {target}
             </p>
             <div
               style={{
@@ -64,10 +75,9 @@ const GoalList = () => {
                 }}
               ></div>
             </div>
-            <small>{percent}% complété</small>
 
             <div style={{ marginTop: "0.5rem" }}>
-              <button
+              <button className="edit-goal-button"
                 onClick={() =>
                   setVisibleFormId(visibleFormId === goal.id ? null : goal.id)
                 }
@@ -76,8 +86,9 @@ const GoalList = () => {
               </button>
 
               <button
+              className="delete-goal-button"
                 onClick={() => handleDelete(goal.id)}
-                style={{ marginLeft: "0.5rem", color: "red" }}
+                style={{ marginLeft: "0.5rem" }}
               >
                 Supprimer
               </button>

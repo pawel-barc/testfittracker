@@ -23,30 +23,32 @@ const NotificationsPage = () => {
   };
 
   return (
-    <div style={{ padding: "1rem" }}>
-      <h2>📬 Notifications</h2>
-      {notifications.length === 0 ? (
-        <p>Pas de nouvelles notifications.</p>
-      ) : (
-        notifications.map((notif) => (
-          <div
-            key={notif.id}
-            style={{
-              marginBottom: "1rem",
-              background: "#f5f5f5",
-              padding: "1rem",
-              borderRadius: "8px",
-            }}
-          >
-            <p>{notif.message}</p>
-            {notif.status === "unread" && (
-              <button onClick={() => handleMarkAsRead(notif.id)}>
-                Marquer comme lue
-              </button>
-            )}
-          </div>
-        ))
-      )}
+    <div className="home-container">
+      <div style={{ padding: "1rem", backgroundColor: 'white', color: 'black', borderRadius: '8px' }}>
+        <h2>📬 Notifications</h2>
+        {notifications.length === 0 ? (
+          <p>Pas de nouvelles notifications.</p>
+        ) : (
+          notifications.map((notif) => (
+            <div 
+              key={notif.id}
+              style={{
+                marginBottom: "1rem",
+                background: "#f5f5f5",
+                padding: "1rem",
+                borderRadius: "8px",
+              }}
+            >
+              <p>{notif.message}</p>
+              {notif.status === "unread" && (
+                <button onClick={() => handleMarkAsRead(notif.id)}>
+                  Marquer comme lue
+                </button>
+              )}
+            </div>
+          ))
+        )}
+      </div>
     </div>
   );
 };

@@ -122,17 +122,8 @@ const Dashboard = () => {
 
         <UserStatList key={refreshKey} />
 
-        <button
-          style={{ width: "2rem", height: "2rem", background: "#00A5A3" }}
-          onClick={() => navigate("/goals")}
-        >
-          <img src="/images/pencil.png" alt="" />
-        </button>
-
         <GoalList />
-        <hr />
         <SessionsList />
-        <hr />
       </div>
     </div>
   );

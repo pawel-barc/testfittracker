@@ -17,9 +17,9 @@ const SessionsList = () => {
   return (
     <div>
       <h2>Mes séances</h2>
-      <ul>
+      <ul className="session-list-div">
         {sessions.map((session) => (
-          <li key={session.id}>
+          <li key={session.id} className="session-list-item">
             <button onClick={() => navigate(`/sessions/${session.id}`)}>
               {session.title} - {new Date(session.date).toLocaleDateString()}
             </button>

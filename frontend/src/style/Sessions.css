@@ -385,7 +385,7 @@
 .session-wizard-resume-part2 ul{
   display: flex;
   flex-direction: column;
-  overflow-y: scroll;
+  height: 10svh;
   max-height: 30svh;
   gap: 5svh;
 }
